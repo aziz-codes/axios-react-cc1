@@ -4,6 +4,7 @@ module.exports = {
     "./src/components/**.{js,jsx}",
     "./src/**.{js,jsx}",
     "./src/pages/**.{js,jsx}",
+    "./src/skeleton/**.{js,jsx}",
   ],
   theme: {
     extend: {},
