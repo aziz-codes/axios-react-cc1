@@ -5,6 +5,7 @@ import Users from "./skeleton/Users";
 const App = () => {
   const [users, setUsers] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [online, setOnline] = useState(navigator.onLine);
   const fetchUsers = () => {
     getUsers().then((res) => {
       setUsers(res.data.data);
@@ -14,6 +15,14 @@ const App = () => {
 
   useEffect(() => {
     fetchUsers();
+  }, []);
+  useEffect(() => {
+    window.addEventListener("online", () => {
+      setOnline(true);
+    });
+    window.addEventListener("offline", () => {
+      setOnline(false);
+    });
   }, []);
   //test commit
   return (
@@ -36,6 +45,7 @@ const App = () => {
             </div>
           ))
         : users.map((_, i) => <Users key={i} />)}
+      <h2>{online ? "connected" : "not connected"}</h2>
     </div>
   );
 };
