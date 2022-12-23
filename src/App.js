@@ -1,12 +1,13 @@
 import { getUsers } from "./services/index";
 import { useState, useEffect } from "react";
-import Users from "./skeleton/Users";
+// import Users from "./skeleton/Users";
 
 const App = () => {
   const [users, setUsers] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [online, setOnline] = useState(navigator.onLine);
   const fetchUsers = () => {
+    // setLoaded(true);
     getUsers().then((res) => {
       setUsers(res.data.data);
     });
@@ -26,7 +27,7 @@ const App = () => {
   }, []);
   //test commit
   return (
-    <div className="w-full grid md:grid-cols-4 gap-3 sm:px-2 my-3 grid-cols-1 sm:grid-cols-2 p-0">
+    <div className="w-full grid md:grid-cols-4 gap-3 sm:px-2 my-3 grid-cols-1 sm:grid-cols-2 p-0 h-screen ">
       {loaded
         ? users.map((user, index) => (
             <div
@@ -44,8 +45,10 @@ const App = () => {
               <span className="text-xs text-gray-400">{user.email}</span>
             </div>
           ))
-        : users.map((_, i) => <Users key={i} />)}
-      <h2>{online ? "connected" : "not connected"}</h2>
+        :  <div className="flex w-full flex-col items-center justify-center">
+          {online ? "": <h3 className="text-xl font-bold">Oops seems like you are not connected <span>But this is not your fault</span></h3>}
+          </div>}
+     
     </div>
   );
 };
