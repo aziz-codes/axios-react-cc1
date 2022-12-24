@@ -27,11 +27,11 @@ const App = () => {
   }, []);
   //test commit
   return (
-    <div className="w-full grid md:grid-cols-4 gap-3 sm:px-2 my-3 grid-cols-1 sm:grid-cols-2 p-0 h-screen ">
+    <div className="w-full flex flex-row flex-wrap px-4 py-4 gap-4">
       {loaded
         ? users.map((user, index) => (
             <div
-              className="border flex flex-col justify-center items-center h-56 sm:w-64 rounded-sm w-full"
+              className="border flex flex-col gap-4 justify-center items-center h-56 sm:w-64 rounded-sm w-full "
               key={index}
             >
               <img
