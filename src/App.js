@@ -6,6 +6,7 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [online, setOnline] = useState(navigator.onLine);
+  const [netStatus,setNetStatus] = useState(false);
   const fetchUsers = () => {
     // setLoaded(true);
     getUsers().then((res) => {
@@ -25,7 +26,14 @@ const App = () => {
       setOnline(false);
     });
   }, []);
-  //test commit
+
+ useEffect(()=>{
+  setNetStatus(true);
+     setInterval(() => {
+      setNetStatus(false);
+     }, 3000);
+     
+ },[online])
   return (
     <div className="w-full flex flex-row flex-wrap px-4 py-4 gap-4">
       {loaded
@@ -48,7 +56,11 @@ const App = () => {
         :  <div className="flex w-full flex-col items-center justify-center">
           {online ? "": <h3 className="text-xl font-bold">Oops seems like you are not connected <span>But this is not your fault</span></h3>}
           </div>}
-     
+        {netStatus && <div className="fixed bottom-1 left-0 h-10 w-auto px-2 bg-white shadow-xl border rounded-md flex flex-row justify-between items-center">
+        {online ? <>
+        <h4 className="p-1 text-sm text-gray-300">Your connection has been restored.</h4>
+        </> : <label className="p-1 text-sm text-gray-300">You are currently offline <span>Refresh</span></label>}
+        </div>}     
     </div>
   );
 };
