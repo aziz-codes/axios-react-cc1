@@ -1,3 +1,5 @@
 display single username and image
 add next and previous button to display next image and previous image without new api call
 if the image is last then call an api.
+
+slice & splice
