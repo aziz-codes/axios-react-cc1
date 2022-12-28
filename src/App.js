@@ -1,67 +1,44 @@
 import { getUsers } from "./services/index";
 import { useState, useEffect } from "react";
-// import Users from "./skeleton/Users";
+
 
 const App = () => {
   const [users, setUsers] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-  const [online, setOnline] = useState(navigator.onLine);
-  const [netStatus,setNetStatus] = useState(false);
+  const [index, setIndex] = useState(0)
+
   const fetchUsers = () => {
-    // setLoaded(true);
     getUsers().then((res) => {
-      setUsers(res.data.data);
+      const {data} = res.data;
+       setUsers(data);
+       console.log(data)
     });
-    setLoaded(true);
+   
   };
 
   useEffect(() => {
     fetchUsers();
   }, []);
-  useEffect(() => {
-    window.addEventListener("online", () => {
-      setOnline(true);
-    });
-    window.addEventListener("offline", () => {
-      setOnline(false);
-    });
-  }, []);
 
- useEffect(()=>{
-  setNetStatus(true);
-     setInterval(() => {
-      setNetStatus(false);
-     }, 3000);
-     
- },[online])
+  
+  const handleNext = () =>{
+   
+  }
+
+ 
+
+
   return (
-    <div className="w-full flex flex-row flex-wrap px-4 py-4 gap-4">
-      {loaded
-        ? users.map((user, index) => (
-            <div
-              className="border flex flex-col gap-4 justify-center items-center h-56 sm:w-64 rounded-sm w-full "
-              key={index}
-            >
-              <img
-                src={user.avatar}
-                className="w-32 h-32 rounded-full"
-                alt={user.first_name}
-              />
-              <h4>
-                {user.first_name} {user.last_name}
-              </h4>
-              <span className="text-xs text-gray-400">{user.email}</span>
-            </div>
-          ))
-        :  <div className="flex w-full flex-col items-center justify-center">
-          {online ? "": <h3 className="text-xl font-bold">Oops seems like you are not connected <span>But this is not your fault</span></h3>}
-          </div>}
-        {netStatus && <div className="fixed bottom-1 left-0 h-10 w-auto px-2 bg-white shadow-xl border rounded-md flex flex-row justify-between items-center">
-        {online ? <>
-        <h4 className="p-1 text-sm text-gray-300">Your connection has been restored.</h4>
-        </> : <label className="p-1 text-sm text-gray-300">You are currently offline <span>Refresh</span></label>}
-        </div>}     
+  <div className="flex  w-full justify-center items-center  ">
+    {/* <img src={users[0].image}/> */}
+    <div className="flex flex-col rounded-md justify-center items-center border mt-5 h-56 w-56">
+      {/* <img src={users[index].avatar} className="h-20 w-20 rounded-full border p-2 " alt="profile"/> */}
+      {/* <h4>{users[0].first_name}</h4> */}
+      <div className="flex flex-row gap-3 mt-3">
+        <button className="rounded-sm p-1 text-white bg-sky-500" onClick={handleNext}>Next</button>
+        <button className="rounded-sm p-1 text-white bg-sky-500">Previous</button>
+      </div>
     </div>
+  </div>
   );
 };
 
